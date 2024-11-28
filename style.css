@@ -492,3 +492,17 @@
     .Emissor\ de\ Boletos img:hover {
         transform: scale(1.1);
     }
+    
+    body {
+        opacity: 1;
+        transition: opacity 0.5s ease-in;
+    }
+    
+    body.fade-in {
+        opacity: 1;
+    }
+    
+    body.fade-out {
+        opacity: 0;
+        transition: opacity 0.5s ease-out;
+    }
