@@ -131,3 +131,73 @@ particlesJS('particles-js',
     }
 
 );
+
+function fadeInOut(element, duration) {
+    if (!element) return; // verificar se o elemento existe
+
+    let opacity = 1;
+    let fadeOut = true;
+
+    function animate() {
+        if (fadeOut) {
+            opacity -= 0.05;
+            if (opacity <= 0) {
+                fadeOut = false;
+                opacity = 0;
+            }
+        } else {
+            opacity += 0.05;
+            if (opacity >= 1) {
+                fadeOut = true;
+                opacity = 1;
+            }
+        }
+        element.style.opacity = opacity;
+
+
+        setTimeout(() => requestAnimationFrame(animate), duration / 20);
+    }
+
+    requestAnimationFrame(animate);
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const nomeElement = document.getElementById('nome');
+    fadeInOut(nomeElement, 1000);
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(() => {
+        document.body.classList.add('fade-in');
+    }, 10);
+
+    const links = document.querySelectorAll("a");
+    links.forEach(link => link.addEventListener("click", navigateWithTransition));
+});
+
+function navigateWithTransition(event) {
+    event.preventDefault();
+    const targetUrl = event.currentTarget.href;
+    document.body.classList.remove('fade-in');
+    document.body.classList.add('fade-out');
+
+    setTimeout(() => {
+        window.location.href = targetUrl;
+    }, 500);
+}
+
+// Efeito de fade-in nos elementos quando a página carrega
+window.addEventListener("load", () => {
+    const elements = document.querySelectorAll('.about-section, .skills-icons, h2');
+    elements.forEach((el) => {
+        el.style.opacity = 0;
+        el.style.transition = "opacity 1s ease-in";
+    });
+
+    setTimeout(() => {
+        elements.forEach((el) => {
+            el.style.opacity = 1;
+        });
+    }, 100);
+});
